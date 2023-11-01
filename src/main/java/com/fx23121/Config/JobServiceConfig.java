@@ -39,7 +39,7 @@ public class JobServiceConfig implements WebMvcConfigurer{
         registry.addResourceHandler("/resources/**")
                 .addResourceLocations("/resources/");
         registry.addResourceHandler("/images/**")
-                .addResourceLocations("resources/assets/images/");
+                .addResourceLocations("/resources/assets/images/");
     }
 
 

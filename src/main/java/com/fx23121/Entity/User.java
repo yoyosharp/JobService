@@ -18,33 +18,18 @@ public class User {
     private int id;
 
     @Column(name = "email")
-    @NotNull(message = "Email không được bỏ trống")
-    @Pattern(regexp = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$",
-            message = "Email không hợp lệ")
     private String email;
 
     @Column(name = "password")
-    @NotNull(message = "Mật khẩu không được bỏ trống")
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$",
-            message = "Mật khẩu phải bao gồm chữ hoa và chữ thường, ký tự đặc biệt và có tối thiểu 6 ký tự")
     private String password;
 
     @Column(name = "name")
-    @NotNull(message = "Họ tên không được bỏ trống")
-    @Size(min = 1, message = "Họ tên không được bỏ trống")
-    @NotBlank(message = "Họ tên không được bỏ trống")
     private String name;
 
     @Column(name = "phone_number")
-    @NotNull(message = "Số điện thoại không được bỏ trống")
-    @Size(min = 1, message = "Số điện thoại không được bỏ trống")
-    @NotBlank(message = "Số điện thoại không được bỏ trống")
     private String phoneNumber;
 
     @Column(name = "address")
-    @NotNull(message = "Địa chỉ không được bỏ trống")
-    @Size(min = 1, message = "Địa chỉ không được bỏ trống")
-    @NotBlank(message = "Địa chỉ không được bỏ trống")
     private String address;
 
     @Column(name = "image")

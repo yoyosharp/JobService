@@ -1,20 +1,83 @@
 package com.fx23121.Controller;
 
+import com.fx23121.Entity.User;
+import com.fx23121.Exception.ConfirmPasswordNotMatchException;
+import com.fx23121.Exception.EmailAlreadyExistedException;
+import com.fx23121.Model.UserModel;
+import com.fx23121.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Controller
 public class LoginController {
 
-    @RequestMapping("/")
-    public String showPublicHome() {
+    @Autowired
+    private UserService userService;
 
-        return "redirect:public/home";
+    @RequestMapping("/")
+    public ModelAndView showHome() {
+
+        ModelAndView modelAndView = new ModelAndView("public/home");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userService.getUserByEmail(auth.getName());
+
+        if (user != null) {
+            modelAndView.addObject("userName", user.getName());
+            modelAndView.addObject("userImage", user.getImage());
+            modelAndView.addObject("userRole", user.getRole().getId());
+            modelAndView.addObject("loginMessage", "successful");
+        }
+        else {
+            modelAndView.addObject("loginMessage", "anonymous");
+        }
+
+        return modelAndView;
     }
 
     @RequestMapping("/login")
-    public ModelAndView showLogin(){
-        return new ModelAndView("login");
+    public ModelAndView showLogin() {
+        ModelAndView modelAndView = new ModelAndView("login");
+        modelAndView.addObject("userModel", new UserModel());
+        return modelAndView;
     }
+
+    @PostMapping("/register")
+    public ModelAndView createUser(@Valid @ModelAttribute("userModel") UserModel userModel,
+                                    BindingResult bindingResult) {
+        //using validator for validate data
+        System.out.println("now register");
+        ModelAndView modelAndView = new ModelAndView("login");
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.addObject("userModel", userModel);
+            modelAndView.addObject("registerMessage", "failed");
+            return modelAndView;
+        }
+        //if data input is validated check for more requirement
+        try {
+            userService.addUser(userModel);
+            modelAndView.addObject("userModel", new UserModel());
+            modelAndView.addObject("registerMessage", "success");
+            return modelAndView;
+        }
+        catch (EmailAlreadyExistedException e) {
+            modelAndView.addObject("registerMessage", "email-existed");
+        }
+        catch (ConfirmPasswordNotMatchException e) {
+            modelAndView.addObject("registerMessage", "password-not-match");
+        }
+
+        modelAndView.addObject("userModel", userModel);
+        return modelAndView;
+    }
+
 }
