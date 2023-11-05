@@ -1,7 +1,6 @@
 package com.fx23121.Repository;
 
 import com.fx23121.Entity.User;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

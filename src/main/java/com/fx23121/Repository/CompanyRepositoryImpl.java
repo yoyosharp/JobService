@@ -14,10 +14,9 @@ import java.util.List;
 @EnableTransactionManagement
 public class CompanyRepositoryImpl implements CompanyRepository {
 
+    private final int ALL_STATUS_VALUE = -10;
     @Autowired
     private SessionFactory sessionFactory;
-
-    private final int ALL_STATUS_VALUE = -10;
 
     @Override
     public Company getCompany(int companyId) {
@@ -66,14 +65,16 @@ public class CompanyRepositoryImpl implements CompanyRepository {
         resultQuery.setMaxResults(resultCount);
         List<Company> resultList = resultQuery.getResultList();
 
-        return new SearchData<>((int)totalResultCount, resultList);
+        return new SearchData<>((int) totalResultCount, resultList);
     }
 
     @Override
-    public void saveOrUpdate(Company company) {
+    public int saveOrUpdate(Company company) {
         //get a new session
         Session session = sessionFactory.getCurrentSession();
 
         session.saveOrUpdate(company);
+
+        return company.getId();
     }
 }

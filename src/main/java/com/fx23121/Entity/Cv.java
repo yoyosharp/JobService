@@ -15,9 +15,7 @@ public class Cv {
     @Column(name = "file_name")
     private String fileName;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "cv", cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
     private User user;
 
     //define constructors

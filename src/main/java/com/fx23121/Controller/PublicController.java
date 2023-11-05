@@ -14,11 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/public")
 public class PublicController {
 
-    @Autowired
-    private UserService userService;
-
     private final int ROLE_EMPLOYER = 1;
     private final int ROLE_EMPLOYEE = 2;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/home")
     public ModelAndView showHome() {
@@ -30,14 +29,13 @@ public class PublicController {
         System.out.println(auth.getName());
         System.out.println(auth.getAuthorities());
 
-        try{
+        try {
             User user = userService.getUserByEmail(auth.getName());
 
-            modelAndView.addObject("userName", user.getName());
-            modelAndView.addObject("userImage", user.getImage());
-            modelAndView.addObject("userRole", user.getRole().getId());
+            modelAndView.addObject("user", user);
+
+        } catch (Exception ignored) {
         }
-        catch (Exception ignored){}
 
         return modelAndView;
     }

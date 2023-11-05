@@ -10,7 +10,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -31,12 +33,9 @@ public class LoginController {
         User user = userService.getUserByEmail(auth.getName());
 
         if (user != null) {
-            modelAndView.addObject("userName", user.getName());
-            modelAndView.addObject("userImage", user.getImage());
-            modelAndView.addObject("userRole", user.getRole().getId());
             modelAndView.addObject("loginMessage", "successful");
-        }
-        else {
+            modelAndView.addObject("user", user);
+        } else {
             modelAndView.addObject("loginMessage", "anonymous");
         }
 
@@ -52,9 +51,8 @@ public class LoginController {
 
     @PostMapping("/register")
     public ModelAndView createUser(@Valid @ModelAttribute("userModel") UserModel userModel,
-                                    BindingResult bindingResult) {
+                                   BindingResult bindingResult) {
         //using validator for validate data
-        System.out.println("now register");
         ModelAndView modelAndView = new ModelAndView("login");
 
         if (bindingResult.hasErrors()) {
@@ -68,11 +66,9 @@ public class LoginController {
             modelAndView.addObject("userModel", new UserModel());
             modelAndView.addObject("registerMessage", "success");
             return modelAndView;
-        }
-        catch (EmailAlreadyExistedException e) {
+        } catch (EmailAlreadyExistedException e) {
             modelAndView.addObject("registerMessage", "email-existed");
-        }
-        catch (ConfirmPasswordNotMatchException e) {
+        } catch (ConfirmPasswordNotMatchException e) {
             modelAndView.addObject("registerMessage", "password-not-match");
         }
 

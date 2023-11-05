@@ -11,7 +11,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
 <!-- CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/open-iconic-bootstrap.min.css">
@@ -46,72 +45,76 @@
 </head>
 <body>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid px-md-4">
-      <a class="navbar-brand text-info" href="${pageContext.request.contextPath}/">Work CV</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-      <div class="collapse navbar-collapse justify-content-end" id="ftco-nav">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item ">
-            <a class="nav-link active text-info" aria-current="page" href="${pageContext.request.contextPath}/">Trang chủ</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-info" href="public/job-list">Công việc</a>
-          </li>
-          <c:if test="${userRole == 1}">
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Công ty
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="company/profile">Hồ sơ</a>
-                    <a class="dropdown-item" href="company/recruitment-list">Danh sách bài đăng</a>
-                    <a class="dropdown-item" href="company/add-recruitment">Đăng tin tuyển dụng</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
-                  </div>
-              </li>
-          </c:if>
-          
-          <c:if test="${userRole == 2}">
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ứng viên
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="employee/profile">Hồ sơ</a>
-                    <a class="dropdown-item" href="employee/saved-job">Công việc đã lưu</a>
-                    <a class="dropdown-item" href="employee/applied-job">Công việc đã ứng tuyển</a>
-                    <a class="dropdown-item" href="employee/followed-company">Công ty đã theo dõi</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
-                  </div>
-              </li>
-          </c:if>
-          <li class="nav-item ml-lg-3">
-              <c:choose>
-                  <c:when test="${userName == null}">
-                      <a class="nav-link" href="${pageContext.request.contextPath}/login">Đăng nhập/Đăng ký</a>
-                  </c:when>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid px-md-4">
+        <a class="navbar-brand text-info" href="${pageContext.request.contextPath}/public/home">Work CV</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse justify-content-end" id="ftco-nav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item ">
+              <a class="nav-link active text-info" aria-current="page" href="${pageContext.request.contextPath}/public/home">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-info" href="public/job-list">Công việc</a>
+            </li>
+    
+            <security:authorize access="hasRole('EMPLOYER')">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Công ty
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">Hồ sơ</a>
+                      <a class="dropdown-item" href="${pageContext.request.contextPath}/company/recruitment-list">Danh sách bài đăng</a>
+                      <a class="dropdown-item" href="${pageContext.request.contextPath}/company/add-recruitment">Đăng tin tuyển dụng</a>
+                      <div class="dropdown-divider"></div>
+                      <form:form action="${pageContext.request.contextPath}/logout">
+                        <input type="submit" class="dropdown-item" value="Đăng xuất">
+                      </form:form>
+                    </div>
+                </li>
+            </security:authorize>
+            
+            <security:authorize access="hasRole('EMPLOYEE')">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Ứng viên
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="${pageContext.request.contextPath}/public/profile">Hồ sơ</a>
+                      <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/saved-job">Công việc đã lưu</a>
+                      <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/applied-job">Công việc đã ứng tuyển</a>
+                      <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/followed-company">Công ty đã theo dõi</a>
+                      <div class="dropdown-divider"></div>
+                      <form:form action="${pageContext.request.contextPath}/logout">
+                        <input type="submit" class="dropdown-item" value="Đăng xuất">
+                      </form:form>
+                    </div>
+                </li>
+            </security:authorize>
+            
+            <li class="nav-item ml-lg-3">
+              <security:authorize access="hasRole('ANONYMOUS')">
+                  <a class="nav-link" href="${pageContext.request.contextPath}/login">Đăng nhập/Đăng ký</a>
+              </security:authorize>
   
-                  <c:when test="${userName != null}">
-                      <div class="nav-link">
-                          <img src="${pageContext.request.contextPath}/images/annonymous.jpg" alt="profile-pic"
-                              style="border-radius: 50%; width: 20px; height: 20px;">
-                      <span>${userName}</span></div>
-                  </c:when>
-              </c:choose>
+              <security:authorize access="hasRole('USER')">
+                  <div class="nav-link">
+                      <img src="${pageContext.request.contextPath}${user.image}" alt="profile-pic"
+                          style="border-radius: 50%; width: 20px; height: 20px;">
+                  <span>${user.name}</span></div>
+              </security:authorize>
           </li>
-          
-          
+            
+            
+        </div>
       </div>
-    </div>
-  </nav>
-<!-- Navbar -->
+    </nav>
+        <!-- Navbar -->
 
 <!-- Breadcrumbs -->
 <div class="hero-wrap hero-wrap-2" style="background-image: url('${pageContext.request.contextPath}/resources/assets/images/bg_1.jpg');" data-stellar-background-ratio="0.5">
@@ -147,7 +150,7 @@
     <div class="toast" data-delay="2500" style="position:fixed; top: 100PX; right: 10PX;z-index: 2000;width: 300px">
       <script>
         swal({
-          title: 'Đăng ký thất bại!',
+          title: 'Đăng ký không thành công!',
           /* text: 'Redirecting...', */
           icon: 'error',
           timer: 3000,
@@ -158,16 +161,6 @@
     </div>
   </c:if>
 </c:if>
-
-<c:choose>
-  
-
-  <c:when test="${registerMessage == ''}">
-  </c:when>
-
-  
-</c:choose>
-
 <!-- Toast messages -->
   
 
@@ -260,8 +253,8 @@
               <label class="text-black" for="fname">Vai trò</label>
               <form:select cssClass="form-control" path="roleId" >
                 <form:option value="" selected="true" disabled="true">Chọn vai trò</form:option>
-                <form:option value="1">Nhà tuyển dụng</form:option>
-                <form:option value="2">Người lao động</form:option>
+                <form:option value="2">Nhà tuyển dụng</form:option>
+                <form:option value="3">Người lao động</form:option>
               </form:select>
               <form:errors path="roleId" cssClass="text-danger"></form:errors>
             </div>
@@ -271,6 +264,8 @@
               <button type="submit" class="btn px-4 btn-primary text-white">Đăng ký</button>
             </div>
           </div>
+          <form:input path="phoneNumber" hidden="true" value="+84"></form:input>
+          <form:input path="address" hidden="true" value="Vietnam"></form:input>
         </form:form>
       </div>
       

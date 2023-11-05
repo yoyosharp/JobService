@@ -1,6 +1,5 @@
 package com.fx23121.Repository;
 
-import com.fx23121.Entity.Category;
 import com.fx23121.Entity.Role;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

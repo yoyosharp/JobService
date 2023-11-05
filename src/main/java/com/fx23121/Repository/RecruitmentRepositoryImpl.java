@@ -1,6 +1,5 @@
 package com.fx23121.Repository;
 
-import com.fx23121.Entity.Company;
 import com.fx23121.Entity.Recruitment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,10 +14,9 @@ import java.util.List;
 @EnableTransactionManagement
 public class RecruitmentRepositoryImpl implements RecruitmentRepository {
 
+    private final int ALL_STATUS_VALUE = -10;
     @Autowired
     private SessionFactory sessionFactory;
-
-    private final int ALL_STATUS_VALUE = -10;
 
     @Override
     public Recruitment getRecruitment(int recruitmentId) {
@@ -65,7 +63,7 @@ public class RecruitmentRepositoryImpl implements RecruitmentRepository {
         resultQuery.setMaxResults(resultCount);
         List<Recruitment> resultList = resultQuery.getResultList();
 
-        return new SearchData<>((int)totalResultCount, resultList);
+        return new SearchData<>((int) totalResultCount, resultList);
 
     }
 

@@ -1,6 +1,5 @@
 package com.fx23121.Service;
 
-import com.fx23121.Entity.Cv;
 import com.fx23121.Entity.User;
 import com.fx23121.Exception.ConfirmPasswordNotMatchException;
 import com.fx23121.Exception.EmailAlreadyExistedException;
@@ -18,4 +17,6 @@ public interface UserService {
     User getUserByEmail(String email);
 
     void addUser(UserModel userModel) throws ConfirmPasswordNotMatchException, EmailAlreadyExistedException;
+
+    void update(UserModel userModel) throws EmailAlreadyExistedException;
 }

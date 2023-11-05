@@ -4,31 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="98b84f1c-e0dd-4ef3-b535-d17be458d8b7" name="Changes" comment="First Commit">
+    <list default="true" id="98b84f1c-e0dd-4ef3-b535-d17be458d8b7" name="Changes" comment="Before Change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/home.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/errors/error-404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/errors/error-404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/errors/exception.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/errors/exception.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/errors/illegalArgument-exception.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/errors/illegalArgument-exception.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/errors/null-exception.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/errors/null-exception.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/login.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/public/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/WEB-INF/view/public/home.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/css/bootstrap/bootstrap-grid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/css/bootstrap/bootstrap-reboot.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/css/css/bootstrap-reboot.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/css/css/load.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/css/css/mixins/_text-hide.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/resources/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/resources/assets/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/js/popper.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Config/JobServiceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Config/JobServiceConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/flaticon/font/Flaticon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/flaticon/font/Flaticon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/flaticon/font/flaticon.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/flaticon/font/flaticon.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/flaticon/license/license.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/flaticon/license/license.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/icomoon/icomoon.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/icomoon/icomoon.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/ionicons/fonts/ionicons.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/ionicons/fonts/ionicons.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/open-iconic/open-iconic.svg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/WebContent/resources/assets/fonts/open-iconic/open-iconic.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WebContent/resources/assets/images/company-4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Config/DispatcherInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Config/DispatcherInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Config/JobServiceConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Config/JobServiceServletConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Config/SecurityWebApplicationInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Config/SecurityWebApplicationInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Controller/DemoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Controller/DemoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Controller/PublicController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Controller/PublicController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Entity/Company.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Entity/Cv.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Entity/Cv.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Entity/Recruitment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Entity/Recruitment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Entity/Role.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Exception/ConfirmPasswordNotMatchException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Exception/ConfirmPasswordNotMatchException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Exception/EmailAlreadyExistedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Exception/EmailAlreadyExistedException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Model/CompanyModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Model/CompanyModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Model/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Model/UserModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/CompanyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/CompanyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/CompanyRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/CompanyRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/RecruitmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/RecruitmentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/RecruitmentRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/RecruitmentRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/RoleRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/RoleRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/TypeRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/TypeRepositoryImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Repository/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Service/CompanyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Service/CompanyService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/fx23121/Service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/fx23121/Service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,8 +58,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="AnnotationType" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -71,7 +91,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Learning/FUNiX PRJ321x.3.0.VN/Asm02/PRJ321x_Project2_DatndFx23121/JobService/src/main/WebContent/WEB-INF/view&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/yoyos/OneDrive/Desktop/New folder/gs-uploading-files&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
@@ -79,9 +99,9 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.fx23121.Validation" />
-      <recent name="com.fx23121.Service" />
       <recent name="com.fx23121.Repository" />
+      <recent name="com.fx23121.Service" />
+      <recent name="com.fx23121.Validation" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Learning\FUNiX PRJ321x.3.0.VN\Asm02\PRJ321x_Project2_DatndFx23121\JobService\src\main\WebContent\WEB-INF\view" />
@@ -89,6 +109,7 @@
       <recent name="D:\Learning\FUNiX PRJ321x.3.0.VN\Asm02\PRJ321x_Project2_DatndFx23121\JobService\src\main\WebContent\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Learning\FUNiX PRJ321x.3.0.VN\Asm02\PRJ321x_Project2_DatndFx23121\JobService\src\main\WebContent\WEB-INF\view\user" />
       <recent name="D:\Learning\FUNiX PRJ321x.3.0.VN\Asm02\PRJ321x_Project2_DatndFx23121\JobService\src\main\WebContent\resources\assests" />
       <recent name="D:\Learning\FUNiX PRJ321x.3.0.VN\Asm02\PRJ321x_Project2_DatndFx23121\JobService\src\main\WebContent\WEB-INF\view\public" />
       <recent name="D:\Learning\FUNiX PRJ321x.3.0.VN\Asm02\PRJ321x_Project2_DatndFx23121\JobService\src\main\WebContent\WEB-INF\view" />
@@ -148,7 +169,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698638943316</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Before Change">
+      <option name="closed" value="true" />
+      <created>1698825272503</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698825272503</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -164,6 +193,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="First Commit" />
+    <MESSAGE value="Before Change" />
+    <option name="LAST_COMMIT_MESSAGE" value="Before Change" />
   </component>
 </project>

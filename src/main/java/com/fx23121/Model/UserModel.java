@@ -4,7 +4,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.ConcurrentModificationException;
 
 
 public class UserModel {
@@ -15,7 +14,7 @@ public class UserModel {
     private String email;
 
     @NotNull(message = "Mật khẩu không được bỏ trống")
-    @Size(min = 6, message = "Mật khẩu dài tối thiểu 6 ký tự")
+    @Size(min = 6, message = "Mật khẩu phải có độ dài tối thiểu 6 ký tự")
     @NotBlank(message = "Mật khẩu không được bỏ trống")
     private String password;
 
@@ -25,9 +24,14 @@ public class UserModel {
     @NotBlank(message = "Họ tên không được bỏ trống")
     private String name;
 
+    @NotBlank(message = "Số điện thoại không được bỏ trống")
     private String phoneNumber;
 
+
+    @NotBlank(message = "Địa chỉ không được bỏ trống")
     private String address;
+
+    private String description;
 
     @NotNull(message = "Hãy chọn một vai trò")
     private Integer roleId;
@@ -35,13 +39,14 @@ public class UserModel {
     public UserModel() {
     }
 
-    public UserModel(String email, String password, String repeatPassword, String name, String phoneNumber, String address, Integer roleId) {
+    public UserModel(String email, String password, String repeatPassword, String name, String phoneNumber, String address, String description, Integer roleId) {
         this.email = email;
         this.password = password;
         this.repeatPassword = repeatPassword;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.description = description;
         this.roleId = roleId;
     }
 
@@ -99,5 +104,13 @@ public class UserModel {
 
     public void setRoleId(Integer roleId) {
         this.roleId = roleId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -1,11 +1,12 @@
 package com.fx23121.Entity;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -41,31 +42,36 @@ public class User {
     @Column(name = "status")
     private int status;
 
-    @ManyToOne(fetch = FetchType.EAGER,
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @Column(name = "company_id")
+    private int companyId = 0;
 
-    @OneToMany(mappedBy = "user")
-    private List<Cv> cvs;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "authorities",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cv_id")
+    private Cv cv = new Cv();
 
     @ManyToMany
     @JoinTable(name = "follow_company",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "company_id"))
-    private List<Company> followedCompanies;
+    private Set<Company> followedCompanies = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "saved_job",
-                joinColumns = @JoinColumn(name = "user_id"),
-                inverseJoinColumns = @JoinColumn(name = "recruitment_id"))
-    private List<Recruitment> savedJobs;
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "recruitment_id"))
+    private Set<Recruitment> savedJobs = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "applied_job",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "recruitment_id"))
-    private List<Recruitment> appliedJobs;
+    private Set<Recruitment> appliedJobs = new HashSet<>();
 
     //define constructors
     public User() {
@@ -156,35 +162,51 @@ public class User {
         this.status = status;
     }
 
-    public Role getRole() {
-        return role;
+    public int getCompanyId() {
+        return companyId;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
-    public List<Company> getFollowedCompanies() {
+    public Cv getCv() {
+        return cv;
+    }
+
+    public void setCv(Cv cv) {
+        this.cv = cv;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Set<Company> getFollowedCompanies() {
         return followedCompanies;
     }
 
-    public void setFollowedCompanies(List<Company> followedCompanies) {
+    public void setFollowedCompanies(Set<Company> followedCompanies) {
         this.followedCompanies = followedCompanies;
     }
 
-    public List<Recruitment> getSavedJobs() {
+    public Set<Recruitment> getSavedJobs() {
         return savedJobs;
     }
 
-    public void setSavedJobs(List<Recruitment> savedJobs) {
+    public void setSavedJobs(Set<Recruitment> savedJobs) {
         this.savedJobs = savedJobs;
     }
 
-    public List<Recruitment> getAppliedJobs() {
+    public Set<Recruitment> getAppliedJobs() {
         return appliedJobs;
     }
 
-    public void setAppliedJobs(List<Recruitment> appliedJobs) {
+    public void setAppliedJobs(Set<Recruitment> appliedJobs) {
         this.appliedJobs = appliedJobs;
     }
 
@@ -196,7 +218,8 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", status=" + status +
-                ", role=" + role.getRoleName() +
+                ", role=" + roles +
                 '}';
     }
+
 }

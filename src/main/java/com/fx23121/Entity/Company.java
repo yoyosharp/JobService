@@ -1,11 +1,10 @@
 package com.fx23121.Entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "company")
@@ -18,27 +17,15 @@ public class Company {
     private int id;
 
     @Column(name = "name")
-    @NotNull(message = "Tên công ty không được bỏ trống")
-    @Size(min = 1, message = "Tên công ty không được bỏ trống")
-    @NotBlank(message = "Tên công ty không được bỏ trống")
     private String name;
 
     @Column(name = "phone_number")
-    @NotNull(message = "Số điện thoại không được bỏ trống")
-    @Size(min = 1, message = "Số điện thoại không được bỏ trống")
-    @NotBlank(message = "Số điện thoại không được bỏ trống")
     private String phoneNumber;
 
     @Column(name = "address")
-    @NotNull(message = "Địa chỉ không được bỏ trống")
-    @Size(min = 1, message = "Địa chỉ không được bỏ trống")
-    @NotBlank(message = "Địa chỉ không được bỏ trống")
     private String address;
 
     @Column(name = "email")
-    @NotNull(message = "Email không được bỏ trống")
-    @Pattern(regexp = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$",
-            message = "Email không hợp lệ")
     private String email;
 
     @Column(name = "logo")
@@ -58,7 +45,7 @@ public class Company {
     private User hr;
 
     @ManyToMany(mappedBy = "followedCompanies")
-    private List<User> followedUsers;
+    private Set<User> followedUsers = new HashSet<>();
     //define constructors
 
     public Company() {
@@ -157,14 +144,13 @@ public class Company {
         this.hr = hr;
     }
 
-    public List<User> getFollowedUsers() {
+    public Set<User> getFollowedUsers() {
         return followedUsers;
     }
 
-    public void setFollowedUsers(List<User> followedUsers) {
+    public void setFollowedUsers(Set<User> followedUsers) {
         this.followedUsers = followedUsers;
     }
-
 
     //define toString()
 

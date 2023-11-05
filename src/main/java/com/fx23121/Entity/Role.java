@@ -1,15 +1,13 @@
 package com.fx23121.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "role")
 public class Role {
     //define fields
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -19,6 +17,7 @@ public class Role {
     //define constructors
     public Role() {
     }
+
     public Role(int id, String roleName) {
         this.id = id;
         this.roleName = roleName;

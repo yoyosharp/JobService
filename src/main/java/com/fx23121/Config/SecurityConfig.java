@@ -1,5 +1,6 @@
 package com.fx23121.Config;
 
+import com.fx23121.Service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
@@ -23,16 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserServiceImpl();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder())
-                .usersByUsernameQuery("SELECT email, password, status FROM user where email = ? and status != -1")
-                .authoritiesByUsernameQuery("SELECT u.email, r.role_name" +
-                        " FROM user u JOIN role r ON u.role_id = r.id" +
-                        " WHERE u.email = ?")
-                ;
+        auth.userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -42,22 +43,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/test").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/resources/**").permitAll()
+                .antMatchers("/images/**").permitAll()
                 .antMatchers("/public/**").permitAll()
+                .antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/upload/**").hasRole("USER")
                 .antMatchers("/company/**").hasRole("EMPLOYER")
                 .antMatchers("/employee/**").hasRole("EMPLOYEE")
                 .anyRequest().authenticated()
-            .and()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/processLogin")
                 .permitAll()
-            .and()
+                .and()
                 .logout()
-                .logoutSuccessUrl("/?logout")
+                .logoutSuccessUrl("/")
                 .permitAll()
-            .and()
+                .and()
                 .exceptionHandling()
                 .accessDeniedPage("/errors/access-denied");
+        http.csrf().ignoringAntMatchers("/user/uploadImage", "/user/uploadLogo", "/user/uploadCv",
+                "/user/deleteCv");
 
     }
 }

@@ -7,7 +7,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
 import java.util.List;
@@ -49,12 +48,11 @@ public class UserRepositoryImpl implements UserRepository {
     public User getUserByEmail(String email) {
         //get a new session and retrieve the object
         Session session = sessionFactory.getCurrentSession();
-        try{
+        try {
             Query<User> query = session.createQuery("FROM User WHERE email = :email", User.class);
             query.setParameter("email", email);
             return query.getSingleResult();
-        }
-        catch (NoResultException nre) {
+        } catch (NoResultException nre) {
             return null;
         }
     }

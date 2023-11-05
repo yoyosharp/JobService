@@ -7,8 +7,8 @@
 <html lang="en">
 <head">
 <title>Work CV - Home</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700&display=swap" rel="stylesheet">
 
@@ -46,7 +46,7 @@
   <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
-<body>
+
 <body>
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -62,55 +62,57 @@
           <a class="nav-link active text-info" aria-current="page" href="${pageContext.request.contextPath}/public/home">Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-info" href="public/job-list">Công việc</a>
+          <a class="nav-link text-info" href="${pageContext.request.contextPath}/public/job-list">Công việc</a>
         </li>
-        <c:if test="${userRole == 1}">
+
+        <security:authorize access="hasRole('EMPLOYER')">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Công ty
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="company/profile">Hồ sơ</a>
-                  <a class="dropdown-item" href="company/recruitment-list">Danh sách bài đăng</a>
-                  <a class="dropdown-item" href="company/add-recruitment">Đăng tin tuyển dụng</a>
+                  <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">Hồ sơ</a>
+                  <c:if test="user.companyId != 0">
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/company/recruitment-list">Danh sách bài đăng</a>
+                    <a class="dropdown-item" href="${pageContext.request.contextPath}/company/add-recruitment">Đăng tin tuyển dụng</a>
+                  </c:if>
                   <div class="dropdown-divider"></div>
                   <form:form action="${pageContext.request.contextPath}/logout">
                     <input type="submit" class="dropdown-item" value="Đăng xuất">
                   </form:form>
                 </div>
             </li>
-        </c:if>
+        </security:authorize>
         
-        <c:if test="${userRole == 2}">
+        <security:authorize access="hasRole('EMPLOYEE')">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Ứng viên
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="employee/profile">Hồ sơ</a>
-                  <a class="dropdown-item" href="employee/saved-job">Công việc đã lưu</a>
-                  <a class="dropdown-item" href="employee/applied-job">Công việc đã ứng tuyển</a>
-                  <a class="dropdown-item" href="employee/followed-company">Công ty đã theo dõi</a>
+                  <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">Hồ sơ</a>
+                  <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/saved-job">Công việc đã lưu</a>
+                  <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/applied-job">Công việc đã ứng tuyển</a>
+                  <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/followed-company">Công ty đã theo dõi</a>
                   <div class="dropdown-divider"></div>
                   <form:form action="${pageContext.request.contextPath}/logout">
                     <input type="submit" class="dropdown-item" value="Đăng xuất">
                   </form:form>
                 </div>
             </li>
-        </c:if>
+        </security:authorize>
+        
         <li class="nav-item ml-lg-3">
-            <c:choose>
-                <c:when test="${userName == null}">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/login">Đăng nhập/Đăng ký</a>
-                </c:when>
+            <security:authorize access="hasRole('ANONYMOUS')">
+                <a class="nav-link" href="${pageContext.request.contextPath}/login">Đăng nhập/Đăng ký</a>
+            </security:authorize>
 
-                <c:when test="${userName != null}">
-                    <div class="nav-link">
-                        <img src="${pageContext.request.contextPath}${userImage}" alt="profile-pic"
-                            style="border-radius: 50%; width: 20px; height: 20px;">
-                    <span>${userName}</span></div>
-                </c:when>
-            </c:choose>
+            <security:authorize access="hasRole('USER')">
+                <div class="nav-link">
+                    <img src="${pageContext.request.contextPath}${user.image}" alt="profile-pic"
+                        style="border-radius: 50%; width: 20px; height: 20px;">
+                <span>${user.name}</span></div>
+            </security:authorize>
         </li>
         
         

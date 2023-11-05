@@ -4,30 +4,33 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "recruitment")
 public class Recruitment {
-    
+
     //define fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    
+
     @Column(name = "title")
     @NotNull(message = "Tiêu đề không được bỏ trống")
     @Size(min = 1, message = "Tiêu đề không được bỏ trống")
     @NotBlank(message = "Tiêu đề không được bỏ trống")
     private String title;
-    
+
     @Column(name = "description")
     private String description;
-    
+
     @Column(name = "experience")
     private String experience;
-    
+
     @Column(name = "quantity")
     @NotNull(message = "Số lượng tuyển dụng không được bỏ trống")
     private Integer quantity;
@@ -67,10 +70,11 @@ public class Recruitment {
     private Company company;
 
     @ManyToMany(mappedBy = "savedJobs")
-    private List<User> savedUsers;
+    private Set<User> savedUsers = new HashSet<>();
 
     @ManyToMany(mappedBy = "appliedJobs")
-    private List<User> appliedUsers;
+    private Set<User> appliedUsers = new HashSet<>();
+
     //define constructors
     public Recruitment() {
     }
@@ -184,19 +188,27 @@ public class Recruitment {
         this.company = company;
     }
 
-    public List<User> getSavedUsers() {
+    public int getTotalApplied() {
+        return totalApplied;
+    }
+
+    public void setTotalApplied(int totalApplied) {
+        this.totalApplied = totalApplied;
+    }
+
+    public Set<User> getSavedUsers() {
         return savedUsers;
     }
 
-    public void setSavedUsers(List<User> savedUsers) {
+    public void setSavedUsers(Set<User> savedUsers) {
         this.savedUsers = savedUsers;
     }
 
-    public List<User> getAppliedUsers() {
+    public Set<User> getAppliedUsers() {
         return appliedUsers;
     }
 
-    public void setAppliedUsers(List<User> appliedUsers) {
+    public void setAppliedUsers(Set<User> appliedUsers) {
         this.appliedUsers = appliedUsers;
     }
 

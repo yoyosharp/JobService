@@ -2,7 +2,6 @@ package com.fx23121.Controller;
 
 import com.fx23121.Entity.User;
 import com.fx23121.Model.UserModel;
-import com.fx23121.Repository.UserRepository;
 import com.fx23121.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,7 @@ public class DemoController {
 
     @Autowired
     private UserService userService;
+
     @RequestMapping("/test")
     private String demo(Model model) {
         User user = userService.getUser(1);
