@@ -20,11 +20,18 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @Override
     public Company getCompany(int companyId) {
-
         //get a new session and retrieve the object
         Session session = sessionFactory.getCurrentSession();
 
         return session.get(Company.class, companyId);
+    }
+
+    @Override
+    public List<Company> getCompanies() {
+        Session session = sessionFactory.getCurrentSession();
+
+        Query<Company> query = session.createQuery("FROM Company", Company.class);
+        return query.getResultList();
     }
 
     @Override

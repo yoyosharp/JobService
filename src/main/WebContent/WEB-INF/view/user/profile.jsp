@@ -126,7 +126,7 @@
                 <h1 class="mb-3 bread">Hồ sơ </h1>
                 <div class="form-group">
                     <label class="btn btn-primary btn-md btn-file">
-                        Chọn ảnh<input type="file" name="file" id="avatarUpload" hidden>
+                        Chọn ảnh<input type="file" name="file" id="avatarUpload" accept=".jpg, .png" hidden>
                     </label>
                 </div>
                 <div style="margin-left: 0px" id="divImage" >
@@ -139,37 +139,37 @@
 <!-- HOME -->
 
 <input type="hidden" id="currentUserEmail" value="${user.email}">
-<!-- Toast -->
-<c:if test="${updateMessage != null}">
-  <c:if test="${updateMessage == 'success'}">
-    <div class="toast" data-delay="2500" style="position:fixed; top: 100PX; right: 10PX;z-index: 2000;width: 300px">
-      <script>
-        swal({
-          title: 'Cập nhật thành công!',
-          icon: 'success',
-          timer: 3000,
-          buttons: true,
-          type: 'success'
-        })
-      </script>
-    </div>
-  </c:if>
 
-  <c:if test="${updateMessage != 'success'}">
-    <div class="toast" data-delay="2500" style="position:fixed; top: 100PX; right: 10PX;z-index: 2000;width: 300px">
-      <script>
-        swal({
-          title: 'Cập nhật không thành công!',
-          /* text: 'Redirecting...', */
-          icon: 'error',
-          timer: 3000,
-          buttons: true,
-          type: 'error'
-        })
-      </script>
+<!-- Toast -->
+<c:if test="${updateMessage != null || companyMessage != null}">
+    <div class="toast" data-delay="2500" style="position: fixed; top: 100px; right: 10px; z-index: 2000; width: 300px">
+        <c:choose>
+            <c:when test="${updateMessage == 'success' || companyMessage == 'success'}">
+                <script>
+                    swal({
+                        title: 'Cập nhật thành công!',
+                        icon: 'success',
+                        timer: 3000,
+                        buttons: true,
+                        type: 'success'
+                    });
+                </script>
+            </c:when>
+            <c:otherwise>
+                <script>
+                    swal({
+                        title: 'Cập nhật không thành công!',
+                        icon: 'error',
+                        timer: 3000,
+                        buttons: true,
+                        type: 'error'
+                    });
+                </script>
+            </c:otherwise>
+        </c:choose>
     </div>
-  </c:if>
 </c:if>
+
 <!-- Toast -->
 
 <section class="site-section" style="margin-top: 10px">
@@ -347,46 +347,40 @@
                 <div class="col-lg-6">
                     <h2 class="mb-4">Thông tin công ty</h2>
                     <div class="form-group">
-                        <label for="company-website-tw d-block1">Cập nhật Logo</label> <br>
                         <label class="btn btn-primary btn-md btn-file">
-                            Chọn logo<input type="file" name="file" id="logoUpload" required hidden>
+                            Cập nhật logo<input type="file" name="file" id="logoUpload" accept=".jpg, .png" hidden>
                         </label>
                         <div id="divLogo">
-                            <img id="ompanyLogo" height="100" width="100" style="border-radius: 50px" src="${pageContext.request.contextPath}${company.logo}">
-                    </div>
-                    <form:form action="${pageContext.request.contextPath}/user/update-company" method="post" enctype="multipart/form-data" modelAttreibute="companyModel">
+                            <img id="companyLogo" height="100" width="100" style="border-radius: 50px" src="${pageContext.request.contextPath}${company.logo}">
+                        </div>
+                    <form:form action="${pageContext.request.contextPath}/user/update-company" method="post" modelAttribute="companyModel">
     
                         <div class="row mb-5">
                             <div class="col-lg-12">
                                 <div class="p-4 p-md-5 border rounded" method="post">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-    
-                                        <input type="text" class="form-control" required id="email1" name="email" th:value="${companyInformation.email != null ? companyInformation.email : null }" placeholder="you@yourdomain.com">
+                                        <form:input type="email" cssClass="form-control" path="email" value="${(companyModel.email == null)? company.email : companyModel.email}"></form:input>
+                                        <c:if test="${companyMessage == 'email-existed'}"><span class="text-danger">Email công ty đã đăng ký trên hệ thống</span></c:if>
                                     </div>
                                     <div class="form-group">
                                         <label for="job-title">Tên công ty</label>
-                                        <input type="text" class="form-control" name="nameCompany" th:value="${companyInformation.nameCompany != null ? companyInformation.nameCompany : null }" id="job-title"  placeholder="Full name" required>
-                                        <input type="hidden" class="form-control" name="user_id" th:value="${companyInformation.user.id != null ? companyInformation.user.id : null}" id="job-title" placeholder="Full name">
-                                        <input type="hidden" class="form-control" name="id" th:value="${companyInformation.id !=null ? companyInformation.id : null}" id="job-title" placeholder="Full name">
-    
+                                        <form:input type="text" cssClass="form-control" path="name" value="${(companyModel.name == null)? company.name : companyModel.name}"></form:input>
+                                        <form:errors path="name" cssClass="text-danger"></form:errors>
                                     </div>
                                     <div class="form-group">
                                         <label for="job-location">Địa chỉ</label>
-                                        <input type="text" name="address" th:value="${companyInformation.address != null ? companyInformation.address : null}" required class="form-control" id="job-location" placeholder="e.g. New York">
+                                        <form:input type="text" cssClass="form-control" path="address" value="${(companyModel.address == null)? company.address : companyModel.address}"></form:input>
+                                        <form:errors path="address" cssClass="text-danger"></form:errors>
                                     </div>
                                     <div class="form-group">
                                         <label for="job-location">Số điện thoại công ty</label>
-                                        <input type="text" name="phoneNumber" th:value="${companyInformation.phoneNumber != null ? companyInformation.phoneNumber : null}" required class="form-control" id="job-location" placeholder="+ 84">
+                                        <form:input type="text" cssClass="form-control" path="phoneNumber" value="${(companyModel.phoneNumber == null)? company.phoneNumber : companyModel.phoneNumber}"></form:input>
+                                        <form:errors path="phoneNumber" cssClass="text-danger"></form:errors>
                                     </div>
                                     <div class="form-group">
                                         <label for="job-location">Mô tả công ty</label>
-                                        <textarea  name="description" th:text="${companyInformation.description != null ? companyInformation.description : null}"  class="form-control" id="editorN" placeholder="Mô tả"></textarea>
-                                    </div>
-    
-    
-                                    <div style="margin-left: 0px" id="divImag1" th:if="${companyInformation.logo != null}">
-                                        <img id="" height="100" width="100" style="border-radius: 50px;margin-bottom: 15px" th:src="${companyInformation.logo}">
+                                        <form:textarea  path="description" value="${(companyModel.description == null)? company.description : companyModel.description}" class="form-control" id="editorN" placeholder="Mô tả"></form:textarea>
                                     </div>
                                     <div class="row form-group" >
                                         <div class="col-md-12">
@@ -397,6 +391,7 @@
                             </div>
                         </div>
                     </form:form>
+                </div>
                 </div>
             </security:authorize>
             
@@ -480,16 +475,16 @@
             if (window.FormData !== undefined) {
                 var fileUpload = $('#logoUpload').get(0);
                 var files = fileUpload.files;
-                var formData = new FormData();                
-                formData.append('file', files[0]);
-                var contextPath = "<%=request.getContextPath()%>";
+                var formData = new FormData();
+                formData.append('logo', files[0]);
+                var contextPath = "<%=request.getContextPath()%>";                
                 if(files[0] == null){
                     alert("Không thể tìm được file, vui lòng thử lại")
-                } else {
+                } else {            
                     $.ajax(
                         {
                             type: 'POST',
-                            url: 'uploadCompanyLogo',
+                            url: 'uploadLogo',
                             contentType: false,
                             processData: false,
                             data: formData,
@@ -502,11 +497,12 @@
                                         buttons: true,
                                         type: 'error'
                                     })
-                                    $("#divImage").css("display","block")
-                                }else{
-                                    $('#companyLogo').attr('src', contextPath + urlImage),
+                                    $("#divLogo").css("display","block")
+                                }else{                                
+                                    $('#companyLogo').attr('src', contextPath + urlLogo)
                                     swal({
-                                        title: 'Cập nhật logo công ty thành công!',                                
+                                        title: 'Cập nhật logo công ty thành công!',
+                                        /* text: 'Redirecting...', */
                                         icon: 'success',
                                         timer: 3000,
                                         buttons: true,

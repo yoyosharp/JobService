@@ -62,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/errors/access-denied");
+
         http.csrf().ignoringAntMatchers("/user/uploadImage", "/user/uploadLogo", "/user/uploadCv",
                 "/user/deleteCv");
 

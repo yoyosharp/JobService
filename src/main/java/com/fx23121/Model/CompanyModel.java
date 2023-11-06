@@ -10,17 +10,14 @@ import javax.validation.constraints.Size;
 public class CompanyModel {
 
     @NotNull(message = "Tên công ty không được bỏ trống")
-    @Size(min = 1, message = "Tên công ty không được bỏ trống")
     @NotBlank(message = "Tên công ty không được bỏ trống")
     private String name;
 
     @NotNull(message = "Số điện thoại không được bỏ trống")
-    @Size(min = 1, message = "Số điện thoại không được bỏ trống")
     @NotBlank(message = "Số điện thoại không được bỏ trống")
     private String phoneNumber;
 
     @NotNull(message = "Địa chỉ không được bỏ trống")
-    @Size(min = 1, message = "Địa chỉ không được bỏ trống")
     @NotBlank(message = "Địa chỉ không được bỏ trống")
     private String address;
 
