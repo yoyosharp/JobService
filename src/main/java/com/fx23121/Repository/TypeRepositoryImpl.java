@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,11 +27,22 @@ public class TypeRepositoryImpl implements RecordRepository<Type> {
     }
 
     @Override
+
     public List<Type> getRecords() {
         //get a new session and retrieve the objects
         Session session = sessionFactory.getCurrentSession();
 
         Query<Type> query = session.createQuery("FROM Type", Type.class);
         return query.getResultList();
+    }
+
+    @Override
+    public List<Type> searchRecords(String keyword, int resultCount) {
+        return null;
+    }
+
+    @Override
+    public void saveOrUpdate(Type type) {
+
     }
 }

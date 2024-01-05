@@ -1,4 +1,4 @@
-package com.fx23121.Repository;
+package com.fx23121.DTO;
 
 import java.util.List;
 

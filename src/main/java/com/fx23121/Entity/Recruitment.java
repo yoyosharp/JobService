@@ -20,9 +20,6 @@ public class Recruitment {
     private int id;
 
     @Column(name = "title")
-    @NotNull(message = "Tiêu đề không được bỏ trống")
-    @Size(min = 1, message = "Tiêu đề không được bỏ trống")
-    @NotBlank(message = "Tiêu đề không được bỏ trống")
     private String title;
 
     @Column(name = "description")
@@ -32,30 +29,26 @@ public class Recruitment {
     private String experience;
 
     @Column(name = "quantity")
-    @NotNull(message = "Số lượng tuyển dụng không được bỏ trống")
     private Integer quantity;
 
     @Column(name = "address")
-    @NotNull(message = "Địa chỉ không được bỏ trống")
-    @Size(min = 1, message = "Địa chỉ không được bỏ trống")
-    @NotBlank(message = "Địa chỉ không được bỏ trống")
     private String address;
 
     @Column(name = "salary")
-    @NotNull(message = "Mức lương không được bỏ trống")
+
     private Integer salary;
 
     @Column(name = "deadline")
-    @NotNull(message = "Hạn ứng tuyển không được bỏ trống")
-    @Size(min = 1, message = "Hạn ứng tuyển không được bỏ trống")
-    @NotBlank(message = "Hạn ứng tuyển không được bỏ trống")
     private String deadline;
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     private String createAt;//this field is an auto-generated field
 
     @Column(name = "total_applied")
     private int totalApplied;
+
+    @Column(name = "status")
+    private int status;
 
     @ManyToOne
     @JoinColumn(name = "type_id")
@@ -69,10 +62,10 @@ public class Recruitment {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @ManyToMany(mappedBy = "savedJobs")
+    @ManyToMany(mappedBy = "savedJobs", fetch = FetchType.EAGER)
     private Set<User> savedUsers = new HashSet<>();
 
-    @ManyToMany(mappedBy = "appliedJobs")
+    @ManyToMany(mappedBy = "appliedJobs", fetch = FetchType.EAGER)
     private Set<User> appliedUsers = new HashSet<>();
 
     //define constructors
@@ -88,6 +81,7 @@ public class Recruitment {
         this.salary = salary;
         this.deadline = deadline;
         this.createAt = createAt;
+        this.status = 1;
     }
 
     //define getters/setters
@@ -194,6 +188,14 @@ public class Recruitment {
 
     public void setTotalApplied(int totalApplied) {
         this.totalApplied = totalApplied;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public Set<User> getSavedUsers() {

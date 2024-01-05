@@ -5,7 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head">
+<head>
 <title>Work CV - Home</title>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
@@ -40,7 +40,6 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/aos.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.animateNumber.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/google-map.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
@@ -49,77 +48,92 @@
 
 <body>
     <!-- Navbar -->
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light">
-  <div class="container-fluid px-md-4">
-    <a class="navbar-brand text-info" href="${pageContext.request.contextPath}/public/home">Work CV</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse justify-content-end" id="ftco-nav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item ">
-          <a class="nav-link active text-info" aria-current="page" href="${pageContext.request.contextPath}/public/home">Trang chủ</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-info" href="${pageContext.request.contextPath}/public/job-list">Công việc</a>
-        </li>
+    <div class="container-fluid px-md-4">
+        <a class="navbar-brand text-info" href="${pageContext.request.contextPath}/public/home">Work CV</a>
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-target="#ftco-nav" data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <security:authorize access="hasRole('EMPLOYER')">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Công ty
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">Hồ sơ</a>
-                  <c:if test="user.companyId != 0">
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/company/recruitment-list">Danh sách bài đăng</a>
-                    <a class="dropdown-item" href="${pageContext.request.contextPath}/company/add-recruitment">Đăng tin tuyển dụng</a>
-                  </c:if>
-                  <div class="dropdown-divider"></div>
-                  <form:form action="${pageContext.request.contextPath}/logout">
-                    <input type="submit" class="dropdown-item" value="Đăng xuất">
-                  </form:form>
-                </div>
-            </li>
-        </security:authorize>
-        
-        <security:authorize access="hasRole('EMPLOYEE')">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Ứng viên
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">Hồ sơ</a>
-                  <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/saved-job">Công việc đã lưu</a>
-                  <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/applied-job">Công việc đã ứng tuyển</a>
-                  <a class="dropdown-item" href="${pageContext.request.contextPath}/employee/followed-company">Công ty đã theo dõi</a>
-                  <div class="dropdown-divider"></div>
-                  <form:form action="${pageContext.request.contextPath}/logout">
-                    <input type="submit" class="dropdown-item" value="Đăng xuất">
-                  </form:form>
-                </div>
-            </li>
-        </security:authorize>
-        
-        <li class="nav-item ml-lg-3">
-            <security:authorize access="hasRole('ANONYMOUS')">
-                <a class="nav-link" href="${pageContext.request.contextPath}/login">Đăng nhập/Đăng ký</a>
-            </security:authorize>
+        <div class="collapse navbar-collapse justify-content-end" id="ftco-nav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item ">
+                    <a aria-current="page" class="nav-link active text-info"
+                       href="${pageContext.request.contextPath}/public/home">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info" href="${pageContext.request.contextPath}/public/jobList">Việc làm</a>
+                </li>
 
-            <security:authorize access="hasRole('USER')">
-                <div class="nav-link">
-                    <img src="${pageContext.request.contextPath}${user.image}" alt="profile-pic"
-                        style="border-radius: 50%; width: 20px; height: 20px;">
-                <span>${user.name}</span></div>
-            </security:authorize>
-        </li>
-        
-        
+                <security:authorize access="hasRole('EMPLOYER')">
+                    <li class="nav-item dropdown">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle text-info" data-toggle="dropdown"
+                           href="#" id="navbarDropdown" role="button">
+                            Tuyển dụng
+                        </a>
+                        <div aria-labelledby="navbarDropdown" class="dropdown-menu">
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">Hồ sơ</a>
+                            <c:choose>
+                                <c:when test="${user.companyId == 0}">
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">Cập
+                                        nhật công ty</a>
+                                </c:when>
+                                <c:when test="${user.companyId != 0}">
+                                    <a class="dropdown-item"
+                                       href="${pageContext.request.contextPath}/company/recruitment-list">Danh sách bài
+                                        đăng</a>
+                                    <a class="dropdown-item"
+                                       href="${pageContext.request.contextPath}/company/add-recruitment">Đăng tin tuyển
+                                        dụng</a>
+                                </c:when>
+                            </c:choose>
+
+                            <div class="dropdown-divider"></div>
+                            <form:form action="${pageContext.request.contextPath}/logout">
+                                <input class="dropdown-item" type="submit" value="Đăng xuất">
+                            </form:form>
+                        </div>
+                    </li>
+                </security:authorize>
+
+                <security:authorize access="hasRole('EMPLOYEE')">
+                    <li class="nav-item dropdown">
+                        <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle text-info" data-toggle="dropdown"
+                           href="#" id="navbarDropdown" role="button">
+                            Ứng viên
+                        </a>
+                        <div aria-labelledby="navbarDropdown" class="dropdown-menu">
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">Hồ sơ</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/user/applied-job">Công
+                                việc đã ứng tuyển</a>
+                            <div class="dropdown-divider"></div>
+                            <form:form action="${pageContext.request.contextPath}/logout">
+                                <input class="dropdown-item" type="submit" value="Đăng xuất">
+                            </form:form>
+                        </div>
+                    </li>
+                </security:authorize>
+
+                <li class="nav-item ml-lg-3">
+                    <security:authorize access="hasRole('ANONYMOUS')">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/login">Đăng nhập/Đăng ký</a>
+                    </security:authorize>
+
+                    <security:authorize access="hasRole('USER')">
+                        <div class="nav-link">
+                            <img alt="profile-pic" src="${pageContext.request.contextPath}${user.image}"
+                                 style="border-radius: 50%; width: 20px; height: 20px;">
+                            <span>${user.name}</span></div>
+                    </security:authorize>
+                </li>
+
+
+        </div>
     </div>
-  </div>
 </nav>
-    <!-- Navbar -->
+<!-- Navbar -->
 
         <c:if test="${loginMessage == 'successful'}">
             <!-- Welcome Message -->
@@ -170,7 +184,7 @@
                                         </div>
                                         <div class="desc text-left">
                                             <strong class="number" data-number="46" th:text="${numberCandidate}"></strong>
-                                            <span>Ứng cử viên</span>
+                                            <span>Ứng viên</span>
                                         </div>
                                     </div>
                                 </div>
@@ -208,8 +222,7 @@
                             <div class="col-md-12 nav-link-wrap">
                                 <div class="nav nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <a class="nav-link active mr-md-1" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Tìm công việc</a>
-
-                                    <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Tìm ứng cử viên</a>
+                                    <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Tìm kiếm công ty</a>
                                     <a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">Tìm theo địa điểm</a>
 
                                 </div>
@@ -219,14 +232,13 @@
                                 <div class="tab-content p-4" id="v-pills-tabContent">
 
                                     <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
-                                        <form action="/recruitment/search" method="post" class="search-job">
+                                        <form:form action="${pageContext.request.contextPath}/public/jobSearch" method="post" class="search-job">
                                             <div class="row no-gutters">
-
                                                 <div class="col-md-10 mr-md-2">
                                                     <div class="form-group">
                                                         <div class="form-field">
                                                             <div class="icon"><span class="icon-map-marker"></span></div>
-                                                            <input type="text" name="keySearch" class="form-control" placeholder="Tìm kiếm công việc">
+                                                            <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm công việc">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -238,18 +250,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </form:form>
                                     </div>
 
                                     <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-performance-tab">
-                                        <form action="/user/search" method="post" class="search-job">
+                                        <form:form action="${pageContext.request.contextPath}/public/jobSearch" method="post" class="search-job">
                                             <div class="row no-gutters">
-
                                                 <div class="col-md-10 mr-md-2">
                                                     <div class="form-group">
                                                         <div class="form-field">
                                                             <div class="icon"><span class="icon-map-marker"></span></div>
-                                                            <input type="text" name="keySearch" class="form-control" placeholder="Tìm kiếm ứng cử viên">
+                                                            <input type="text" name="keyword" class="form-control" placeholder="Tìm kiếm công ty">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -261,17 +272,16 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </form:form>
                                     </div>
                                     <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-performance-tab">
-                                        <form action="/recruitment/searchaddress" method="post" class="search-job">
+                                        <form:form action="${pageContext.request.contextPath}/public/jobSearch" method="post" class="search-job">
                                             <div class="row no-gutters">
-
                                                 <div class="col-md-10 mr-md-2">
                                                     <div class="form-group">
                                                         <div class="form-field">
                                                             <div class="icon"><span class="icon-map-marker"></span></div>
-                                                            <input type="text" name="keySearch" class="form-control" placeholder="Tìm kiếm theo địa điểm">
+                                                            <input type="text" name="address" class="form-control" placeholder="Tìm kiếm theo địa điểm">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -283,7 +293,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </form:form>
                                     </div>
                                 </div>
                             </div>
@@ -295,6 +305,7 @@
     </div>
 </div>
 
+<!-- Category section -->
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center mb-5">
@@ -305,18 +316,29 @@
             </div>
         </div>
         <div class="row">
-            <th:block th:each="categorie : ${categories}">
-            <div class="col-md-3 ">
-                <ul class="category text-center">
-
-                    <li><a style="text-decoration: none !important;" th:href="${'/recruitment/category/'}+${categorie.id}"> <p th:text="${categorie.name}"></p><span class="number" th:text="${categorie.numberChoose}"></span> <span>Vị trí</span><i class="ion-ios-arrow-forward"></i></a></li>
-                </ul>
-            </div>
-            </th:block>
+            <c:forEach var="index" begin="0" end="3">
+                <div class="col col-lg-3 text-center">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                          <h5 class="card-title text-monospace">#${index + 1}: ${topCategories[index].name}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">Vị trí đang tuyển: ${topCategories[index].appliedNumber}</h6>
+                            <div style="font-size: 5rem">
+                                <i class="flaticon-mortarboard"></i>
+                            </div>
+                            <form:form action="${pageContext.request.contextPath}/public/jobSearch">
+                                <input type="hidden" name="categoryId" value="${topCategories[index].id}">
+                                <button type="submit" class="btn btn-primary">Xem danh mục</button>
+                            </form:form>          
+                        </div>
+                      </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </section>
+<!-- Category section -->
 
+<!-- Decor section -->
 <section class="ftco-section services-section">
     <div class="container">
         <div class="row d-flex">
@@ -359,341 +381,375 @@
         </div>
     </div>
 </section>
+<!-- Decor section -->
 
+<!-- Job section -->
 <section class="ftco-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9 pr-lg-5">
-                <div class="row justify-content-center pb-3">
-                    <div class="col-md-12 heading-section ">
-                        <span class="subheading">CÔNG VIỆC ĐƯỢC NHIỀU NGƯỜI ỨNG TUYỂN</span>
-                        <h2 class="mb-4">Các bài đăng về việc làm nổi bật</h2>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <th:block th:each="recruitment : ${recruitments}">
-                        <div class="col-md-12 ">
-                            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-                                <div class="one-third mb-4 mb-md-0">
-                                    <div class="job-post-item-header align-items-center">
-                                        <span class="subadge" th:text="${recruitment.type}"></span>
-                                        <h2 class="mr-3 text-black" ><a th:text="${recruitment.title}" th:href="${'/recruitment/detail/'} +${recruitment.id}"></a></h2>
-                                    </div>
-                                    <div class="job-post-item-body d-block d-md-flex">
-                                        <div class="mr-3"><span class="icon-layers"></span> <a href="#" th:text="${recruitment.Company.nameCompany}" ></a></div>
-                                        <div><span class="icon-my_location"></span> <span th:text="${recruitment.address}"></span></div>
-                                    </div>
-                                </div>
-                                <input type="hidden" th:id="${'idRe'}+${recruitment.id}" th:value="${recruitment.id}">
-                                <div th:if="${session.user}" class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-                                    <div th:if="${session.user.role.id == 1}">
-                                        <a  th:onclick="'save(' +${recruitment.id}+ ')'" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
-                                            <span class="icon-heart"></span>
-                                        </a>
-                                    </div>
-                                    <a th:if="${session.user.role.id == 1}" data-toggle="modal" th:data-target="${'#exampleModal'}+${recruitment.id}" class="btn btn-primary py-2">Apply Job</a>
-                                </div>
-                                <div th:unless="${session.user}" class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-                                    <div >
-                                        <a  th:onclick="'save(' +${recruitment.id}+ ')'" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
-                                            <span class="icon-heart"></span>
-                                        </a>
-                                    </div>
-                                    <a  data-toggle="modal" th:data-target="${'#exampleModal'}+${recruitment.id}" class="btn btn-primary py-2">Apply Job</a>
-                                </div>
-                            </div>
-                        </div><!-- end -->
-                        <!-- Modal -->
-                        <div class="modal fade" th:id="${'exampleModal'}+${recruitment.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Ứng tuyển: <span th:text="${recruitment.title}"></span></h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <form method="post" action="/user/apply-job">
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <select th:id="${'choose'}+${recruitment.id}" th:onchange="'choosed(' +${recruitment.id}+ ')'" class="form-control" aria-label="Default select example">
-                                                        <option selected>Chọn phương thức nộp</option>
-                                                        <option value="1">Dùng cv đã cập nhật</option>
-                                                        <option value="2">Nộp cv mới</option>
-                                                    </select>
-                                                </div>
-                                                <div th:id="${'loai1'}+${recruitment.id}" style="display:none" class="col-12">
-                                                    <label for="fileUpload"
-                                                           class="col-form-label">Giới thiệu:</label>
-                                                    <textarea rows="10" cols="3" class="form-control"  th:id="${'text'}+${recruitment.id}" >
-
-                                                    </textarea>
-                                                </div>
-                                                <div th:id="${'loai2'}+${recruitment.id}" style="display:none" class="col-12">
-
-                                                    <label for="fileUpload"
-                                                           class="col-form-label">Chọn cv:</label>
-                                                    <input type="file" class="form-control"
-                                                           th:id="${'fileUpload'}+${recruitment.id}" name="file"   required>
-                                                    <label for="fileUpload"
-                                                           class="col-form-label">Giới thiệu:</label>
-                                                    <textarea rows="10" cols="3" class="form-control"  th:id="${'text'}+${recruitment.id}" >
-
-                                                    </textarea>
-                                                </div>
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                                <button type="button" th:id="${'button1'}+${recruitment.id}" style="display: none" th:onclick="'apply1(' +${recruitment.id}+ ')'" class="btn btn-primary">Nộp</button>
-                                                <button type="button" th:id="${'button2'}+${recruitment.id}" style="display: none" th:onclick="'apply(' +${recruitment.id}+ ')'" class="btn btn-primary">Nộp</button>
-                                            </div>
-                                        </div>
-                                    </form>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </th:block>
-
-                </div>
+    <div class="container">        
+        <div class="row justify-content-center pb-3">
+            <div class="col-md-12 heading-section ">
+                <span class="subheading">TOP CÔNG VIỆC NỔI BẬT</span>
+                <h2 class="mb-4">Các bài đăng về việc làm nổi bật</h2>
             </div>
-            <div class="col-lg-3 sidebar">
-                <div class="row justify-content-center pb-3">
-                    <div class="col-md-12 heading-section ">
-                        <h2 class="mb-4">Công ty nổi bật</h2>
+        </div>
+        <div class="row">
+            <c:forEach var="recruitment" items="${topRecruitments}">
+                <div class="col-lg-6 ">
+                    <div class="job-post-item p-4 align-items-center">
+                        <div class="col-12 mb-4 mb-lg-0">
+                            <div class="job-post-item-header align-items-center">
+                                <span class="subadge" >${recruitment.type.name}</span>
+                                <form:form action="${pageContext.request.contextPath}/public/job-detail" method="post">
+                                    <input type="hidden" value="${recruitment.id}" name="recruitmentId">
+                                    <h2 class="mr-3 text-dark">
+                                        <button type="submit" class="  mt-2"
+                                        style="border: none;
+                                        background: none;
+                                        padding: 0;
+                                        cursor: pointer;"
+                                        >${recruitment.title}</button> 
+                                    </h2>
+                                </form:form>  
+
+                                <form:form action="${pageContext.request.contextPath}/public/company-detail" method="post">
+                                    <div class="mr-3">
+                                        <span class="icon-layers"></span>                                                    
+                                        <input type="hidden" value="${recruitment.company.id}" name="companyId"/>                                                    
+                                            <button type="submit" class="btn-light"
+                                            style="border: none;
+                                            background: none;
+                                            padding: 0;"     
+                                            > ${recruitment.company.name}</button>                                                                                               
+                                        <span class="icon-my_location"></span><span> ${recruitment.address}</span>                                   
+                                    </div>    
+                                </form:form>
+                                <div>
+                                    <p>                                                                               
+                                        <span class="icon-people_outline"></span><span> ${recruitment.quantity}</span>
+                                        <span class="icon-money ml-3"></span><span> ${recruitment.salary}</span><br>
+                                        <span class="icon-tasks"></span><span> ${recruitment.category.name}</span>                                         
+                                    </p>
+                                </div>   
+                                                                    
+                            </div>
+                            <security:authorize access="hasRole('EMPLOYEE')">
+                                <div class="d-flex align-items-center mt-4 md-md-0">
+                                    <div class="ml-auto">
+                                        <form:form>
+                                            <input type="hidden" value="${recruitment.id}">   
+                                            <button type="submit" style="border: none; background: none; padding: 0;">
+                                                <a id="saveJob" class="icon text-center d-flex justify-content-center align-items-center mr-2">
+                                                <span class="icon-heart"></span>
+                                                </a>
+                                            </button>
+                                        </form:form>                                                
+                                
+                                    </div>
+                                    <a data-toggle="modal" data-target="#modal${recruitment.id}" class="btn btn-primary py-2">Ứng tuyển</a>
+                                </div>  
+                            </security:authorize>
+                        </div>                                                    
                     </div>
                 </div>
-                <th:block th:each="companies : ${companies}">
-                <div class="sidebar-box">
-                    <div class="">
-                        <a th:href="${'/user/detail-company/'}+${companies[0]}" class="company-wrap"><img th:src="${companies[2]}" class="img-fluid" alt="Colorlib Free Template"></a>
-                        <div class="text p-3">
-                            <h3><a th:href="${'/user/detail-company/'}+${companies[0]}" th:text="${companies[1]}"></a></h3>
-                            <p><span class="number" style="color: black" th:text="${companies[3]}"></span> <span>Vị trí ứng tuyển</span></p>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modal${recruitment.id}" tabindex="-1" role="dialog" aria-labelledby="modalLabel${recruitment.id}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalLabel${recruitment.id}">Ứng tuyển: <span>${recruitment.title}</span></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form class="applyForm">
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <select id="submitTypeSelect${recruitment.id}" class="submitTypeSelect form-control" aria-label="Default select example">
+                                                <option selected>Chọn phương thức nộp</option>
+                                                <option value="1">Dùng cv đã cập nhật</option>
+                                                <option value="2">Nộp cv mới</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row my-2 mx-3" id="submitTypeSelect${recruitment.id}cv" style="display: none;">
+                                        Chọn CV (.pdf): 
+                                        <label>
+                                            <input cssClass="form-control" type="file" name="file" accept=".pdf"></input>
+                                        </label>
+                                        <input type="hidden" value="${recruitment.id}">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                        <button type="submit" class="btn btn-primary">Ứng tuyển</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                </th:block>
+                <!-- Modal -->
+            </c:forEach>                      
+        </div>
+               
+    </div>
+</section>
+<!-- Job section -->
+
+<!-- Company section -->
+<section>
+    <div class="hero-wrap img" style="background-image: url('${pageContext.request.contextPath}/resources/assets/images/bg_1.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row d-md-flex no-gutters slider-text align-items-center justify-content-center">
+                 <div class="ftco-search my-md-5 text-center">
+                        <h2 class="my-3 text-white">Công ty nổi bật</h2>     
+                        
+                        <div class="row">                 
+                            <div class="col-md-12 nav-link-wrap">
+                                <div class="nav nav-pills text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                    <a class="nav-link active mr-md-1" id="v-pills-4-tab" data-toggle="pill" href="#v-pills-4" role="tab" aria-controls="v-pills-4" aria-selected="true">Nhiều công việc</a>
+                                    <a class="nav-link" id="v-pills-5-tab" data-toggle="pill" href="#v-pills-5" role="tab" aria-controls="v-pills-5" aria-selected="false">Nhiều vị trí</a>
+                                    <a class="nav-link" id="v-pills-6-tab" data-toggle="pill" href="#v-pills-6" role="tab" aria-controls="v-pills-6" aria-selected="false">Top ứng tuyển</a>
+            
+                                </div>
+                            </div>
+                            <div class="col-md-12 tab-wrap">
+            
+                                <div class="tab-content p-4" id="v-pills-tabContent">
+                                    <div class="tab-pane fade show active" id="v-pills-4" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
+                                        <div class="row justify-content-around">
+                                            <c:if test="${topCompaniesByRecruitment != null}">
+                                                <c:forEach var="companyDTO" items="${topCompaniesByRecruitment}">
+                                                    <div class="col-12 col-lg-5 mb-3 job-post-item p-4 rounded">
+                                                        <div class="row d-flex align-items-center justify-content-between">
+                                                            <div class="col" style="max-width: 110px;">
+                                                                <span class="icon"></span>
+                                                                <img src="${pageContext.request.contextPath}${companyDTO.company.logo}" alt="company-logo" style="width: 100px;">
+                                                            </div>
+                                                            <div class="col">
+                                                                <form:form action="${pageContext.request.contextPath}/public/company-detail" method="post">                                                                                                                   
+                                                                    <input type="hidden" value="${companyDTO.company.id}" name="companyId">                                                    
+                                                                        <button type="submit" class="btn-light"
+                                                                        style="border: none;
+                                                                        background: none;
+                                                                        padding: 0;"     
+                                                                        > ${companyDTO.company.name}</button>                                                                                                                        
+                                                                </form:form>
+                                                            <p class="text-dark">Số bài đăng: ${companyDTO.parameter}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+                                            </c:if>
+                                        </div>
+                                    </div>
+            
+                                    <div class="tab-pane fade" id="v-pills-5" role="tabpanel" aria-labelledby="v-pills-performance-tab">
+                                        <div class="row justify-content-around">
+                                            <c:if test="${topCompaniesByJobCount != null}">
+                                                <c:forEach var="companyDTO" items="${topCompaniesByJobCount}">
+                                                    <div class="col-12 col-lg-5 mb-3 job-post-item p-4 rounded">
+                                                        <div class="row d-flex align-items-center">
+                                                            <div class="col" style="max-width: 110px;">
+                                                                <span class="icon"></span>
+                                                                <img src="${pageContext.request.contextPath}${companyDTO.company.logo}" alt="company-logo" style="width: 100px;">
+                                                            </div>
+                                                            <div class="col">
+                                                            <a href="${pageContext.request.contextPath}/public/company-detail"><h5>${companyDTO.company.name}</h5></a>
+                                                            <p class="text-dark">Vị trí tuyển dụng: ${companyDTO.parameter}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="v-pills-6" role="tabpanel" aria-labelledby="v-pills-performance-tab">
+                                        <div class="row justify-content-around">
+                                            <c:if test="${topCompaniesByApplied != null}">
+                                                <c:forEach var="companyDTO" items="${topCompaniesByApplied}">
+                                                    <div class="col-12 col-lg-5 mb-3 job-post-item p-4 rounded">
+                                                        <div class="row d-flex align-items-center">
+                                                            <div class="col" style="max-width: 110px;">
+                                                                <span class="icon"></span>
+                                                                <img src="${pageContext.request.contextPath}${companyDTO.company.logo}" alt="company-logo" style="width: 100px;">
+                                                            </div>
+                                                            <div class="col">
+                                                            <a href=""><h5>${companyDTO.company.name}</h5></a>
+                                                            <p class="text-dark">số lượt ứng tuyển: ${companyDTO.parameter}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div> 
             </div>
         </div>
     </div>
 </section>
+<!-- Company section -->
+
+
 <script>
-    function save(id){
-        var name = "#idRe" +id;
-        var idRe = $(name).val();
-        var formData = new FormData();
-        formData.append('idRe', idRe);
-        $.ajax(
-            {
-                type: 'POST',
-                url: '/save-job/save/',
-                contentType: false,
-                processData: false,
-                data: formData,
-                success: function (data) {
-                    console.log(data);
-                    if(data == "false"){
-                        swal({
-                            title: 'Bạn cần phải đăng nhập!',
-                            /* text: 'Redirecting...', */
-                            icon: 'error',
-                            timer: 3000,
-                            buttons: true,
-                            type: 'error'
-                        })
-                    }else if(data == "true"){
-                        swal({
-                            title: 'Lưu thành công!',
-                            /* text: 'Redirecting...', */
-                            icon: 'success',
-                            timer: 3000,
-                            buttons: true,
-                            type: 'success'
-                        })
-                    }else{
-                        swal({
-                            title: 'Bạn đã lưu bài này rồi!',
-                            /* text: 'Redirecting...', */
-                            icon: 'error',
-                            timer: 3000,
-                            buttons: true,
-                            type: 'error'
-                        })
-                    }
-                },
-                error: function (err) {
-                    alert(err);
-                }
+
+    var cvSelects = document.querySelectorAll(".submitTypeSelect");
+    cvSelects.forEach(function(select){
+        select.addEventListener("change", function() {
+            var selectedOption = select.options[select.selectedIndex];
+            var type = selectedOption.value;
+            var selectId = select.id;
+            if(type == 2) { 
+                document.getElementById(selectId + 'cv').style.display = 'block';
             }
-        )
-    }
+            else {
+                document.getElementById(selectId + 'cv').style.display = 'none';
+            }
+        })
+    });
 
-    function choosed(id){
-        var name = '#choose' + id;
-        var name1 = 'loai1' + id;
-        var name2 = 'loai2' + id;
-        var button1 = 'button1' + id;
-        var button2 = 'button2' + id;
-        var giaitri = $(name).val();
-        if(giaitri == 1){
-            document.getElementById(name1).style.display = 'block'
-            document.getElementById(name2).style.display = 'none'
-            document.getElementById(button1).style.display = 'block'
-            document.getElementById(button2).style.display = 'none'
-        }else{
-            document.getElementById(name2).style.display = 'block'
-            document.getElementById(name1).style.display = 'none'
-            document.getElementById(button2).style.display = 'block'
-            document.getElementById(button1).style.display = 'none'
-        }
-    }
+    var applyForms = document.querySelectorAll(".applyForm");
+    applyForms.forEach(function(form){
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            console.log(form);
 
-    function apply(id){
-        var name = "#idRe" +id;
-        var nameModal = "#exampleModal" +id;
-        var nameFile = "#fileUpload"+id;
-        var nameText = "#text" +id;
-        var idRe = $(name).val();
-        var textvalue = $(nameText).val();
-        var fileUpload = $(nameFile).get(0);
-        var files = fileUpload.files;
-        var formData = new FormData();
-        formData.append('file', files[0]);
-        formData.append('idRe', idRe);
-        formData.append('text', textvalue);
-        if(files[0] == null){
-            swal({
-                title: 'Bạn cần phải chọn cv!',
-                /* text: 'Redirecting...', */
-                icon: 'error',
-                timer: 3000,
-                buttons: true,
-                type: 'error'
-            })
-        } else {
-            $.ajax(
-                {
-                    type: 'POST',
-                    url: '/user/apply-job/',
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: function (data) {
-                        if (data == "false") {
-                            swal({
-                                title: 'Bạn cần phải đăng nhập!',
-                                /* text: 'Redirecting...', */
-                                icon: 'error',
-                                timer: 3000,
-                                buttons: true,
-                                type: 'error'
-                            })
-                        } else if (data == "true") {
-                            swal({
-                                title: 'Ứng tuyển thành công!',
-                                /* text: 'Redirecting...', */
-                                icon: 'success',
-                                timer: 3000,
-                                buttons: true,
-                                type: 'success'
-                            })
-                            $(nameModal).modal('hide');
-                            $('#fileUpload').val("");
-                        } else {
-                            swal({
-                                title: 'Bạn đã ứng tuyển công việc này!',
-                                /* text: 'Redirecting...', */
-                                icon: 'error',
-                                timer: 3000,
-                                buttons: true,
-                                type: 'error'
-                            })
-                            $(nameModal).modal('hide');
-                            $('#fileUpload').val("");
+            if (window.FormData !== undefined) {
+                
+                var fileUpload = form.elements[1];
+                var id=form.elements[2].value;
+
+                console.log(fileUpload);
+                console.log(id);
+                
+                var files = fileUpload.files;
+
+                var formData = new FormData();
+                if (files.length > 0) {
+                    formData.append('file', files[0]);
+                } else {
+                    formData.append('file', null); 
+                }
+                formData.append('recruitmentId', id);
+                var contextPath = "<%=request.getContextPath()%>";
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            url: contextPath + '/user/applyJob',
+                            contentType: false,
+                            processData: false,
+                            data: formData,
+                            success: function (message) {  
+                                console.log(message)                          
+                                if(message == 'alreadyApplied'){    
+                                    console.log(message)                    
+                                    swal({
+                                        title: 'Bạn đã ứng tuyển công việc này',
+                                        icon: 'error',
+                                        timer: 3000,
+                                        buttons: true,
+                                        type: 'error'
+                                    })
+                                }else{
+                                    swal({
+                                        title: 'Ứng tuyển thành công!',
+                                        icon: 'success',
+                                        timer: 3000,
+                                        buttons: true,
+                                        type: 'success'
+                                    })                                 
+                                }
+
+                            },
+                            error: function (err) {
+                                swal({
+                                    title: 'Đã có lỗi xảy ra, vui lòng thử lại',
+                                    icon: 'error',
+                                    timer: 3000,
+                                    buttons: true,
+                                    type: 'error'    
+                                })
+                            }
                         }
-                    },
-                    error: function (err) {
-                        alert(err);
-                    }
-                }
-            )
-        }
+                    )
+                $('.modal').modal('hide');
 
-    }
-    function apply1(id){
-        var name = "#idRe" +id;
-        var nameModal = "#exampleModal" +id;
-        var nameFile = "#fileUpload"+id;
-        var nameText = "#text" +id;
-        var idRe = $(name).val();
-        var textvalue = $(nameText).val();
-        var formData = new FormData();
-        formData.append('idRe', idRe);
-        formData.append('text', textvalue);
-        $.ajax(
-            {
-                type: 'POST',
-                url: '/user/apply-job1/',
-                contentType: false,
-                processData: false,
-                data: formData,
-                success: function (data) {
-                    if(data == "false"){
-                        swal({
-                            title: 'Bạn cần phải đăng nhập!',
-                            /* text: 'Redirecting...', */
-                            icon: 'error',
-                            timer: 3000,
-                            buttons: true,
-                            type: 'error'
-                        })
-                    }else if(data == "true"){
-                        swal({
-                            title: 'Ứng tuyển thành công!',
-                            /* text: 'Redirecting...', */
-                            icon: 'success',
-                            timer: 3000,
-                            buttons: true,
-                            type: 'success'
-                        })
-                        $(nameModal).modal('hide');
-                        $('#fileUpload').val("");
-                    }else{
-                        swal({
-                            title: 'Bạn đã ứng tuyển công việc này!',
-                            /* text: 'Redirecting...', */
-                            icon: 'error',
-                            timer: 3000,
-                            buttons: true,
-                            type: 'error'
-                        })
-                        $(nameModal).modal('hide');
-                        $('#fileUpload').val("");
-                    }
-                },
-                error: function (err) {
-                    alert(err);
-                }
             }
-        )
 
+        })
+    });
 
-    }
+    $(function () {
+        $('#fileUpload').change(function () {
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#fileUpload').get(0);
+                var files = fileUpload.files;
+                var formData = new FormData();
+                formData.append('file', files[0]);
+                var contextPath = "<%=request.getContextPath()%>";
+                var userEmail = document.getElementById('currentUserEmail').value;
+                if(files[0] == null){
+                    alert("Không tìm được file, vui lòng thử lại")
+                } else {
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            url: 'uploadCv',
+                            contentType: false,
+                            processData: false,
+                            data: formData,
+                            success: function (cvUrl) {  
+                                console.log(cvUrl)                          
+                                if(cvUrl == "Error"){                        
+                                    swal({
+                                        title: 'Cập nhật CV không thành công',
+                                        icon: 'error',
+                                        timer: 3000,
+                                        buttons: true,
+                                        type: 'error'
+                                    })
+                                }else{
+                                    swal({
+                                        title: 'Cập nhật CV thành công!',
+                                        icon: 'success',
+                                        timer: 3000,
+                                        buttons: true,
+                                        type: 'success'
+                                    })
+                                    var parts = cvUrl.split("/");
+                                    var cvName = parts[parts.length - 1];
+                                    $('#uploadCvName').html(cvName);
+                                    $('#uploadCvView').html('Xem CV');
+                                    document.getElementById('uploadCvView').href = contextPath +'/upload/' + userEmail + cvUrl;   
+                                    $('#uploadCvDelete').html('Xoá CV');                                    
+                                                                     
+                                }
+
+                            },
+                            error: function (err) {
+                                alert("Đã có lỗi xảy ra. vui lòng thử lại");
+                            }
+                        }
+                    )
+                }
+
+            }
+        })
+    })
+
 </script>
 
 
 <footer th:replace="public/fragments :: footer" class="ftco-footer ftco-bg-dark ftco-section">
 
 </footer>
-
-
-<!-- loader -->
-<!--<div th:replace="public/fragments :: loading" id="ftco-loader" class="show fullscreen"></div>-->
 
 </body>
 </html>

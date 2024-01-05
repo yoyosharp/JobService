@@ -67,7 +67,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "recruitment_id"))
     private Set<Recruitment> savedJobs = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "applied_job",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "recruitment_id"))

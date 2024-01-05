@@ -33,4 +33,14 @@ public class RoleRepositoryImpl implements RecordRepository<Role> {
         Query<Role> query = session.createQuery("FROM Category", Role.class);
         return query.getResultList();
     }
+
+    @Override
+    public List<Role> searchRecords(String keyword, int resultCount) {
+        return null;
+    }
+
+    @Override
+    public void saveOrUpdate(Role role) {
+
+    }
 }

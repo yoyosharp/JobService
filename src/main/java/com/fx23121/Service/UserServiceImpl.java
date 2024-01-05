@@ -125,6 +125,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user == null) throw new UsernameNotFoundException("Email chưa đăng ký trên hệ thống");
 
         boolean isEnabled = !(user.getStatus() == -1);
+
         Set<GrantedAuthority> authorities = user.getRoles().stream()
                 .map((role -> new SimpleGrantedAuthority(role.getRoleName())))
                 .collect(Collectors.toSet());

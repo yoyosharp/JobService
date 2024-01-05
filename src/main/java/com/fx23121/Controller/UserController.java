@@ -1,18 +1,15 @@
 package com.fx23121.Controller;
 
-import com.fx23121.Entity.Company;
-import com.fx23121.Entity.Cv;
-import com.fx23121.Entity.Role;
-import com.fx23121.Entity.User;
+import com.fx23121.Entity.*;
 import com.fx23121.Exception.EmailAlreadyExistedException;
 import com.fx23121.Model.CompanyModel;
 import com.fx23121.Model.UserModel;
-import com.fx23121.Service.CompanyService;
-import com.fx23121.Service.CvService;
-import com.fx23121.Service.UserService;
+import com.fx23121.Repository.RecordRepository;
+import com.fx23121.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,6 +32,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -50,6 +48,11 @@ public class UserController {
     private ResourceLoader resourceLoader;
     @Autowired
     private CvService cvService;
+    @Autowired
+    private RecruitmentService recruitmentService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     private final String UPLOAD_PATH = "/upload/";
 
@@ -77,6 +80,13 @@ public class UserController {
                 company = dummyCompany;
             }
             modelAndView.addObject("company", company);
+        }
+        if (userRolesId.contains(3)){
+            Cv userCv = currentUser.getCv();
+            if (userCv == null) {
+                currentUser.setCv(new Cv(null, currentUser));
+                userService.saveOrUpdate(currentUser);
+            }
         }
 
         modelAndView.addObject("user", currentUser);
@@ -169,8 +179,8 @@ public class UserController {
         if (!file.isEmpty()) {
             try {
                 User currentUser = getCurrentUser();
-                Resource resource = resourceLoader.getResource(UPLOAD_PATH);
                 String fileName = file.getOriginalFilename();
+                Resource resource = resourceLoader.getResource(UPLOAD_PATH);
 
                 //Get upload folder for the user or create if it is not existed
                 Path uploadLocation = Paths.get(resource.getFile().getAbsolutePath()).resolve(currentUser.getEmail());
@@ -195,7 +205,7 @@ public class UserController {
                 return ResponseEntity.accepted().body("/" + fileName);
             }
             catch (Exception e) {
-                System.out.println("Error" + e.getMessage());
+                e.printStackTrace();
                 return ResponseEntity.ok().body("Error");
             }
         }
@@ -223,42 +233,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/update-company")
-    public ModelAndView updateCompany(@Valid @ModelAttribute("companyModel") CompanyModel companyModel,
-                                      BindingResult result) {
-        ModelAndView modelAndView = new ModelAndView("user/profile");
 
-        User user = getCurrentUser();
-        Company company = companyService.getCompany(user.getCompanyId());
-
-        if (result.hasErrors()) {
-            modelAndView.addObject("user", user);
-            modelAndView.addObject("company", company);
-            modelAndView.addObject("userModel", new UserModel());
-            modelAndView.addObject("companyModel", companyModel);
-            modelAndView.addObject("companyMessage", "failed");
-            return modelAndView;
-        }
-
-        try {
-            companyService.update(company.getId(), companyModel);
-            modelAndView.addObject("companyMessage", "success");
-            modelAndView.addObject("user", user);
-            modelAndView.addObject("company", company);
-            modelAndView.addObject("userModel", new UserModel());
-            modelAndView.addObject("companyModel", new CompanyModel());
-            return modelAndView;
-        }
-        catch (EmailAlreadyExistedException e) {
-            modelAndView.addObject("companyMessage", "email-existed");
-        }
-        //catch error return the submitted data to the webpage
-        modelAndView.addObject("user", user);
-        modelAndView.addObject("company", company);
-        modelAndView.addObject("userModel", new UserModel());
-        modelAndView.addObject("companyModel", companyModel);
-        return modelAndView;
-    }
 
     @PostMapping("/uploadLogo")
     public ResponseEntity<String> updateLogo(@RequestParam("logo") MultipartFile file) {
@@ -297,4 +272,73 @@ public class UserController {
             return ResponseEntity.ok().body("Error");
         }
     }
+
+    @PostMapping("/applyJob")
+    public ResponseEntity<String> applyJob(@RequestParam(value = "file", required = false) MultipartFile file,
+                                           @RequestParam("recruitmentId") int recruitmentId){
+        User currentUser = getCurrentUser();
+        Recruitment currentRecruitment = recruitmentService.getRecruitment(recruitmentId);
+
+        Set<Integer> userAppliedJobsId = new HashSet<>();
+        currentUser.getAppliedJobs().forEach(recruitment -> {
+            userAppliedJobsId.add(recruitment.getId());
+        });
+
+        if (userAppliedJobsId.contains(currentRecruitment.getId())) {
+            return ResponseEntity.ok("alreadyApplied");
+        }
+
+        //if another cv uploaded -> save the new cv before process
+        if (file != null) {
+            try{
+                String fileName = file.getOriginalFilename();
+                Resource resource = resourceLoader.getResource(UPLOAD_PATH);
+
+                //Get upload folder for the user or create if it is not existed
+                Path uploadLocation = Paths.get(resource.getFile().getAbsolutePath()).resolve(currentUser.getEmail());
+                if (!Files.exists(uploadLocation) || !Files.isDirectory(uploadLocation))
+                    Files.createDirectories(uploadLocation);
+
+                //each user can have only 1 Cv-> rename original pic
+                Path destinationFile = uploadLocation.resolve(fileName).normalize();
+                try (InputStream inputStream = file.getInputStream()) {
+                    Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+                }
+
+                //set user CV to the new Cv
+                Cv userCv = currentUser.getCv();
+                if (userCv == null) userCv = new Cv();
+                userCv.setFileName(fileName);
+                userCv.setUser(currentUser);
+                cvService.addCv(userCv);
+                currentUser.setCv(userCv);
+                userService.saveOrUpdate(currentUser);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+
+        currentRecruitment.getAppliedUsers().add(currentUser);
+        currentUser.getAppliedJobs().add(currentRecruitment);
+        userService.saveOrUpdate(currentUser);
+        recruitmentService.saveOrUpdate(currentRecruitment);
+
+        Category jobCategory = currentRecruitment.getCategory();
+        jobCategory.setAppliedNumber(jobCategory.getAppliedNumber() + 1);
+        categoryService.saveOrUpdate(jobCategory);
+
+        return ResponseEntity.ok("Success");
+    }
+
+    @RequestMapping("/applied-job")
+    public ModelAndView showAppliedJob(){
+        ModelAndView modelAndView = new ModelAndView("user/appliedJob");
+        User currentUser = getCurrentUser();
+        modelAndView.addObject("user", currentUser);
+
+        return modelAndView;
+    }
+
 }

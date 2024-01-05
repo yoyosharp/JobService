@@ -11314,6 +11314,7 @@ h5,
 .category li a:focus {
   color: #206dfb;
   background: #ffefdb;
+  text-decoration: none;
 }
 .category li a:hover i,
 .category li a:focus i {
@@ -11344,7 +11345,7 @@ h5,
 .job-post-item h2 {
   font-size: 28px;
 }
-.job-post-item h2 a {
+.job-post-item h2 {
   color: #000000;
 }
 .job-post-item .one-third {
@@ -11355,7 +11356,7 @@ h5,
     width: 100%;
   }
 }
-.job-post-item .one-third .subadge {
+.job-post-item .subadge {
   color: rgba(0, 0, 0, 0.3);
   color: #206dfb;
   text-transform: uppercase;
@@ -11370,7 +11371,7 @@ h5,
     width: 100%;
   }
 }
-.job-post-item .one-forth > div .icon {
+.job-post-item > div .icon {
   width: 40px;
   height: 40px;
   -webkit-border-radius: 50%;
@@ -11378,7 +11379,7 @@ h5,
   -ms-border-radius: 50%;
   border-radius: 50%;
 }
-.job-post-item .icon {
+.job-post-item > button .icon {
   border: none !important;
   background: #ffefdb !important;
   -moz-transition: all 0.3s ease;
@@ -11386,6 +11387,7 @@ h5,
   -webkit-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  opacity: 0;
 }
 @media (min-width: 992px) {
   .job-post-item .icon {
@@ -12481,7 +12483,7 @@ textarea.form-control {
   margin-bottom: 4px;
   font-weight: 400;
 }
-.block-27 ul li a,
+.block-27 a,
 .block-27 ul li span {
   color: #206dfb;
   text-align: center;

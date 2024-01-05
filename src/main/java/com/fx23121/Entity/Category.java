@@ -20,7 +20,7 @@ public class Category {
     @Column(name = "applied_number")
     private int appliedNumber;
 
-    //define cunstructors
+    //define constructors
     public Category() {
     }
 

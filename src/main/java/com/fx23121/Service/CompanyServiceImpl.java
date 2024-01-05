@@ -1,5 +1,7 @@
 package com.fx23121.Service;
 
+import com.fx23121.DTO.CompanyDTO;
+import com.fx23121.DTO.SearchData;
 import com.fx23121.Entity.Company;
 import com.fx23121.Exception.EmailAlreadyExistedException;
 import com.fx23121.Model.CompanyModel;
@@ -58,4 +60,18 @@ public class CompanyServiceImpl implements CompanyService {
 
         companyRepository.saveOrUpdate(currentCompany);
     }
+
+    //get top companies by type: 1 - by total recruitment, 2 - by total job quantity, 3 - by total applicant
+    @Override
+    @Transactional
+    public List<CompanyDTO> getTopCompanies(int type, int resultCount) {
+        return companyRepository.getTopCompanies(type, resultCount);
+    }
+
+    @Override
+    @Transactional
+    public SearchData<Company> listCompany(int type, int pageSize, int pageIndex) {
+        return companyRepository.getListCompany(type, pageSize, pageIndex);
+    }
+
 }

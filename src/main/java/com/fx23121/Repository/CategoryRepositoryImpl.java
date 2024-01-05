@@ -33,4 +33,28 @@ public class CategoryRepositoryImpl implements RecordRepository<Category> {
         Query<Category> query = session.createQuery("FROM Category", Category.class);
         return query.getResultList();
     }
+
+    @Override
+    public List<Category> searchRecords(String keyword, int resultCount) {
+        //get new session
+        Session session = sessionFactory.getCurrentSession();
+        String strKeyword = "%" + keyword + "%";
+
+        Query<Category> query = session.createQuery("FROM Category WHERE name LIKE :strKeyword" +
+                " ORDER BY appliedNumber DESC", Category.class);
+        query.setParameter("strKeyword", strKeyword);
+        query.setMaxResults(8);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public void saveOrUpdate(Category category) {
+
+        // get new session
+        Session session = sessionFactory.getCurrentSession();
+
+        session.saveOrUpdate(category);
+    }
 }
+

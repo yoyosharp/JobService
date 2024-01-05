@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity()
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -64,7 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/errors/access-denied");
 
         http.csrf().ignoringAntMatchers("/user/uploadImage", "/user/uploadLogo", "/user/uploadCv",
-                "/user/deleteCv");
+                "/user/deleteCv", "/user/applyJob");
 
+        http.csrf().disable();
     }
 }

@@ -1,12 +1,14 @@
 package com.fx23121.Config;
 
 
+import com.fx23121.Model.RecruitmentSearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.context.support.ServletContextResource;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.ViewResolver;
@@ -43,7 +45,7 @@ public class JobServiceServletConfig implements WebMvcConfigurer {
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE);
-
+        multipartResolver.setDefaultEncoding("UTF-8");
         return multipartResolver;
     }
     @Override
@@ -56,4 +58,9 @@ public class JobServiceServletConfig implements WebMvcConfigurer {
                 .addResourceLocations("/upload/");
     }
 
+
+    @Bean
+    public RecruitmentSearchFilter recruitmentSearchFilter() {
+        return new RecruitmentSearchFilter("", 0, 0, "", 0);
+    }
 }
